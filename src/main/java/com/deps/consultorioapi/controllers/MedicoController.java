@@ -3,11 +3,14 @@ package com.deps.consultorioapi.controllers;
 import com.deps.consultorioapi.model.Medico;
 import com.deps.consultorioapi.services.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("medicos")
 public class MedicoController {
@@ -30,8 +33,10 @@ public class MedicoController {
         return ResponseEntity.notFound().build();
     }
 
+    @Transactional
     @PostMapping
     public ResponseEntity<Medico> cadastrarMedico(@RequestBody Medico medico){
+
         return ResponseEntity.ok(medicoService.cadastrarMedico(medico));
     }
 
@@ -44,6 +49,11 @@ public class MedicoController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Medico> atualizarMedico(@PathVariable Long id, @RequestBody Medico medico){
+        return ResponseEntity.ok(medicoService.atualizarMedico(id, medico));
     }
 
 }
