@@ -1,12 +1,8 @@
 package com.deps.consultorioapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 public class Agenda implements Serializable {
@@ -14,9 +10,10 @@ public class Agenda implements Serializable {
     private static final long serialVerionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    private Medico medico;
+
+    private String NomeMedico;
 
     private String diaAtendimento;
     private String horarioAtendimento;
@@ -24,7 +21,7 @@ public class Agenda implements Serializable {
     public Agenda(){}
 
     public Agenda(Medico medico, String diaAtendimento, String horarioAtendimento){
-        this.medico = medico;
+        this.NomeMedico = medico.getNome();
         this.diaAtendimento = diaAtendimento;
         this.horarioAtendimento = horarioAtendimento;
 
@@ -34,12 +31,12 @@ public class Agenda implements Serializable {
         return id;
     }
 
-    public Medico getMedico() {
-        return medico;
+    public String getNomeMedico() {
+        return this.NomeMedico;
     }
 
     public void setMedico(Medico medico) {
-        this.medico = medico;
+        this.NomeMedico = medico.getNome();
     }
 
     public String getDiaAtendimento() {
