@@ -1,7 +1,10 @@
 package com.deps.consultorioapi.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Medico implements Serializable {
@@ -19,6 +22,9 @@ public class Medico implements Serializable {
     @OneToOne
     private Agenda agenda;
 
+    @OneToMany
+    private List<Consulta> consultas = new ArrayList<>();
+
     public Medico(){}
 
     // Construtor sem agenda
@@ -30,15 +36,15 @@ public class Medico implements Serializable {
         this.email = email;
     }
 
-    // Construtor com agenda
-    public Medico(Long crm, String nome, Especialidade especialidade, String telefone, String email, Agenda agenda){
-        this.crm = crm;
-        this.nome = nome;
-        this.especialidade = especialidade;
-        this.telefone = telefone;
-        this.email = email;
-        this.agenda = agenda;
-    }
+//    // Construtor com agenda
+//    public Medico(Long crm, String nome, Especialidade especialidade, String telefone, String email, Agenda agenda){
+//        this.crm = crm;
+//        this.nome = nome;
+//        this.especialidade = especialidade;
+//        this.telefone = telefone;
+//        this.email = email;
+//        this.agenda = agenda;
+//    }
 
     public Long getId() {
         return id;
@@ -84,11 +90,15 @@ public class Medico implements Serializable {
         this.email = email;
     }
 
-    public Agenda getAgenda() {
-        return agenda;
+    public List<Consulta> getConsultas() {
+        return consultas;
     }
 
-    public void setAgenda(Agenda agenda) {
-        this.agenda = agenda;
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
+    public void addConsulta(Consulta consulta){
+        this.consultas.add(consulta);
     }
 }
