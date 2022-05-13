@@ -1,5 +1,8 @@
 package com.deps.consultorioapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -19,10 +22,9 @@ public class Medico implements Serializable {
     private Especialidade especialidade;
     private String telefone;
     private String email;
-    @OneToOne
-    private Agenda agenda;
 
-    @OneToMany
+
+    @OneToMany(cascade=CascadeType.PERSIST)
     private List<Consulta> consultas = new ArrayList<>();
 
     public Medico(){}

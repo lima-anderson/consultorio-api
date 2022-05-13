@@ -31,21 +31,6 @@ public class MedicoService {
     }
 
     public Medico cadastrarMedico(Medico medico){
-        if (medico != null){
-
-            if(medico.getAgenda() == null){
-                Agenda agenda = new Agenda();
-                agenda.setMedico(medico);
-                medico.setAgenda(agenda);
-            }else {
-                Agenda agenda = new Agenda();
-                agenda.setMedico(medico);
-                agenda.setHorarioAtendimento(medico.getAgenda().getHorarioAtendimento());
-                agenda.setDiaAtendimento(medico.getAgenda().getDiaAtendimento());
-                medico.setAgenda(agenda);
-            }
-            agendaRepository.save(medico.getAgenda());
-        }
         return medicoRepository.save(medico);
     }
 
@@ -71,14 +56,7 @@ public class MedicoService {
             if (medico.getTelefone() != null && !medico.getTelefone().isEmpty()){
                 medicoAtual.setTelefone(medico.getTelefone());
             }
-            if (medico.getAgenda() != null){
-                if (medico.getAgenda().getDiaAtendimento() != null && !medico.getAgenda().getDiaAtendimento().isEmpty()){
-                    medicoAtual.getAgenda().setDiaAtendimento(medico.getAgenda().getDiaAtendimento());
-                }
-                if (medico.getAgenda().getHorarioAtendimento() != null && !medico.getAgenda().getHorarioAtendimento().isEmpty()){
-                    medicoAtual.getAgenda().setHorarioAtendimento(medico.getAgenda().getHorarioAtendimento());
-                }
-            }
+
         }
 
         return medicoRepository.save(medicoAtual);

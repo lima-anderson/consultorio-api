@@ -1,5 +1,7 @@
 package com.deps.consultorioapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class Paciente implements Serializable {
 	private String sexo;
 	private String endereco;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Consulta> consultas = new ArrayList<>();
 
 	public Paciente() {
