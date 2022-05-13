@@ -93,4 +93,9 @@ public class MedicoService {
     public List<Medico> listarMedicoPorEspecialidade(Especialidade especialidade){
         return medicoRepository.findMedicoByEspecialidade(especialidade);
     }
+
+    // Endpoint para facilitar os testes
+    public List<Medico> cadastrarListaDeMedicos(List<Medico> listaMedicos){
+        return medicoRepository.saveAll(listaMedicos);
+    }
 }

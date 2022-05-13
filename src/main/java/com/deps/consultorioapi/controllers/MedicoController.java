@@ -67,4 +67,9 @@ public class MedicoController {
         return ResponseEntity.ok(medicoService.listarMedicoPorEspecialidade(especialidade));
     }
 
+    @PostMapping("listaDeMedicos")
+    public ResponseEntity<List<Medico>> cadastrarListaDeMedicos(@RequestBody List<Medico> listaMedicos){
+        return ResponseEntity.ok(medicoService.cadastrarListaDeMedicos(listaMedicos));
+    }
+
 }
