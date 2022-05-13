@@ -1,12 +1,13 @@
 package com.deps.consultorioapi.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
 public class Paciente implements Serializable {
@@ -22,7 +23,9 @@ public class Paciente implements Serializable {
 	private String email;
 	private String sexo;
 	private String endereco;
-//	private List<Consulta> agenda;
+
+	@OneToMany(cascade=CascadeType.PERSIST)
+	private List<Consulta> consultas = new ArrayList<>();
 
 	public Paciente() {
 
@@ -105,7 +108,19 @@ public class Paciente implements Serializable {
 		this.endereco = endereco;
 	}
 
-//	public List<Consulta> getAgenda() {
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
+
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
+	}
+
+	public void addConsulta(Consulta consulta){
+		this.consultas.add(consulta);
+	}
+
+	//	public List<Consulta> getAgenda() {
 //		return agenda;
 //	}
 //
