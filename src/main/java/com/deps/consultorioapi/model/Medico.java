@@ -13,7 +13,7 @@ public class Medico implements Serializable {
     private Long id;
     private Long crm;
     private String nome;
-    private String especialidade;
+    private Especialidade especialidade;
     private String telefone;
     private String email;
     @OneToOne
@@ -22,7 +22,7 @@ public class Medico implements Serializable {
     public Medico(){}
 
     // Construtor sem agenda
-    public Medico(Long crm, String nome, String especialidade, String telefone, String email){
+    public Medico(Long crm, String nome, Especialidade especialidade, String telefone, String email){
         this.crm = crm;
         this.nome = nome;
         this.especialidade = especialidade;
@@ -31,7 +31,7 @@ public class Medico implements Serializable {
     }
 
     // Construtor com agenda
-    public Medico(Long crm, String nome, String especialidade, String telefone, String email, Agenda agenda){
+    public Medico(Long crm, String nome, Especialidade especialidade, String telefone, String email, Agenda agenda){
         this.crm = crm;
         this.nome = nome;
         this.especialidade = especialidade;
@@ -60,11 +60,11 @@ public class Medico implements Serializable {
         this.nome = nome;
     }
 
-    public String getEspecialidade() {
+    public Especialidade getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(String especialidade) {
+    public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
 

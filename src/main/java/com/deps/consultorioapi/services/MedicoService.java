@@ -2,12 +2,15 @@ package com.deps.consultorioapi.services;
 
 import antlr.StringUtils;
 import com.deps.consultorioapi.model.Agenda;
+import com.deps.consultorioapi.model.Especialidade;
 import com.deps.consultorioapi.model.Medico;
 import com.deps.consultorioapi.repositories.AgendaRepository;
 import com.deps.consultorioapi.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -62,7 +65,7 @@ public class MedicoService {
             if (medico.getEmail() != null && !medico.getEmail().isEmpty()){
                 medicoAtual.setEmail(medico.getEmail());
             }
-            if (medico.getEspecialidade() != null && !medico.getEspecialidade().isEmpty()){
+            if (medico.getEspecialidade() != null && !medico.getEspecialidade().equals("")){
                 medicoAtual.setEspecialidade(medico.getEspecialidade());
             }
             if (medico.getTelefone() != null && !medico.getTelefone().isEmpty()){
@@ -79,5 +82,15 @@ public class MedicoService {
         }
 
         return medicoRepository.save(medicoAtual);
+    }
+
+    public List<Especialidade> listarEspecialidades(){
+        List<Especialidade> especialidades = new ArrayList<>();
+
+        return Arrays.asList(Especialidade.values());
+    }
+
+    public List<Medico> listarMedicoPorEspecialidade(Especialidade especialidade){
+        return medicoRepository.findMedicoByEspecialidade(especialidade);
     }
 }

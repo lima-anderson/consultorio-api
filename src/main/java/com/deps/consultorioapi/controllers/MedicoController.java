@@ -1,5 +1,6 @@
 package com.deps.consultorioapi.controllers;
 
+import com.deps.consultorioapi.model.Especialidade;
 import com.deps.consultorioapi.model.Medico;
 import com.deps.consultorioapi.services.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,16 @@ public class MedicoController {
     @PutMapping("/{id}")
     public ResponseEntity<Medico> atualizarMedico(@PathVariable Long id, @RequestBody Medico medico){
         return ResponseEntity.ok(medicoService.atualizarMedico(id, medico));
+    }
+
+    @GetMapping("/especialidades")
+    public ResponseEntity<List<Especialidade>> listarEspecialidades(){
+        return ResponseEntity.ok(medicoService.listarEspecialidades());
+    }
+
+    @GetMapping("/especialidades/{especialidade}")
+    public ResponseEntity<List<Medico>> listarMedicoPorEspecialidade(@PathVariable Especialidade especialidade){
+        return ResponseEntity.ok(medicoService.listarMedicoPorEspecialidade(especialidade));
     }
 
 }
