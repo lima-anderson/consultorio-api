@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Paciente;
 import com.deps.consultorioapi.repositories.PacienteRepository;
+import com.deps.consultorioapi.services.excecoes.IntegridadeDeDadoException;
 import com.deps.consultorioapi.services.excecoes.ObjetoNaoEncontradoException;
 
 @Service
@@ -38,7 +40,11 @@ public class PacienteService {
 
 	public void apagar(Long id) {
 		buscarPorId(id);
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new IntegridadeDeDadoException("Não é possível excluir estudante que possui produtos.");
+		}
 	}
 
 }

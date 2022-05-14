@@ -1,16 +1,19 @@
 package com.deps.consultorioapi.services;
 
-import com.deps.consultorioapi.model.Consulta;
-import com.deps.consultorioapi.model.DTO.ConsultaDTO;
-import com.deps.consultorioapi.model.Medico;
-import com.deps.consultorioapi.model.Paciente;
-import com.deps.consultorioapi.repositories.ConsultaRepository;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.List;
+import com.deps.consultorioapi.model.Consulta;
+import com.deps.consultorioapi.model.Medico;
+import com.deps.consultorioapi.model.Paciente;
+import com.deps.consultorioapi.model.DTO.ConsultaDTO;
+import com.deps.consultorioapi.repositories.ConsultaRepository;
+import com.deps.consultorioapi.services.excecoes.ObjetoNaoEncontradoException;
+
 
 @Service
 public class ConsultaService {
@@ -29,9 +32,11 @@ public class ConsultaService {
     }
 
     public Consulta buscarConsultaPorId(Long id){
-        return consultaRepository.findById(id).get();
-    }
-
+    	Optional<Consulta> obj = consultaRepository.findById(id);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
+    } 
+    
     public Consulta criarConsulta(ConsultaDTO consultaDTO) throws Exception {
 
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());

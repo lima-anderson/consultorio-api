@@ -1,15 +1,24 @@
 package com.deps.consultorioapi.controllers;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.deps.consultorioapi.model.Especialidade;
 import com.deps.consultorioapi.model.Medico;
 import com.deps.consultorioapi.services.MedicoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -27,11 +36,7 @@ public class MedicoController {
     @GetMapping("/{id}")
     public ResponseEntity<Medico> buscarMedicoPorId(@PathVariable Long id){
         Medico medico = medicoService.buscarMedicoPorId(id);
-
-        if (medico != null){
-            return ResponseEntity.ok(medicoService.buscarMedicoPorId(id));
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(medico);
     }
 
     @Transactional
@@ -43,13 +48,8 @@ public class MedicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMedico(@PathVariable Long id){
-        Medico medico = medicoService.buscarMedicoPorId(id);
-        if (medico != null){
-            medicoService.apagarMedico(medico);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        medicoService.apagarMedico(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")

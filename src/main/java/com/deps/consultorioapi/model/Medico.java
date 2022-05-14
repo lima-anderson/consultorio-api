@@ -1,18 +1,19 @@
 package com.deps.consultorioapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 @Entity
 public class Medico implements Serializable {
-
-    private static final long serialVerionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Medico implements Serializable {
     private String email;
 
 
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(cascade=CascadeType.PERSIST, mappedBy = "medico")
     private List<Consulta> consultas = new ArrayList<>();
 
     public Medico(){}
