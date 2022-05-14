@@ -1,6 +1,7 @@
 package com.deps.consultorioapi.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,18 @@ public class ConsultaService {
 
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
         Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
+
+        int consultas = 0;
+
+        for (Consulta consulta : medico.getConsultas()){
+            if (consulta.getDataConsulta().isEqual(consultaDTO.getDataConsulta())){
+                consultas++;
+            }
+        }
+
+        if (consultas >= 10){
+            throw new Exception("NÃO HÁ MAIS VAGAS PARA ESTE MÉDICO NESTA DATA");
+        }
 
         if (medico != null && paciente != null){
             Consulta consulta = new Consulta(medico, paciente, consultaDTO.getDataConsulta());
