@@ -72,5 +72,19 @@ public class ConsultaService {
         }
     }
 
+    public Consulta alterarConsulta(ConsultaDTO consultaDTO){
+
+        Consulta consulta = this.buscarConsultaPorId(consultaDTO.getIdConsulta());
+        Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
+        Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
+        LocalDate dataConsulta = consultaDTO.getDataConsulta();
+
+        consulta.setMedico(medico);
+        consulta.setPaciente(paciente);
+        consulta.setDataConsulta(dataConsulta);
+
+        return consultaRepository.save(consulta);
+    }
+
 
 }
