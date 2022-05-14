@@ -43,4 +43,9 @@ public class ConsultaController {
         consultaService.apagarConsulta(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping
+    public ResponseEntity<Consulta> alterarConsulta(@RequestBody ConsultaDTO consulta){
+        return ResponseEntity.ok(consultaService.alterarConsulta(consulta));
+    }
 }

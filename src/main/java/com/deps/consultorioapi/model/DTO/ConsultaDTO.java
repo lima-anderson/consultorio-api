@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 public class ConsultaDTO {
 
+    private Long idConsulta;
+
     private Long medicoId;
 
     private Long pacienteId;
@@ -17,6 +19,14 @@ public class ConsultaDTO {
     private LocalDate dataConsulta;
 
     public ConsultaDTO(){}
+
+    public Long getIdConsulta() {
+        return idConsulta;
+    }
+
+    public void setIdConsulta(Long idConsulta) {
+        this.idConsulta = idConsulta;
+    }
 
     public Long getMedicoId() {
         return medicoId;
