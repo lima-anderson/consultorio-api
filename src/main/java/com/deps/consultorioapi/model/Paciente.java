@@ -27,7 +27,7 @@ public class Paciente implements Serializable {
 	private String sexo;
 	private String endereco;
 
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = "paciente")
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Consulta> consultas = new ArrayList<>();
 
 	public Paciente() {
@@ -121,6 +121,10 @@ public class Paciente implements Serializable {
 
 	public void addConsulta(Consulta consulta){
 		this.consultas.add(consulta);
+	}
+
+	public void removerConsulta(Consulta consulta){
+		this.consultas.remove(consulta);
 	}
 
 	//	public List<Consulta> getAgenda() {

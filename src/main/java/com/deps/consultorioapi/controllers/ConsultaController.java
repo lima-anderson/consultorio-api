@@ -37,4 +37,10 @@ public class ConsultaController {
     public ResponseEntity<Consulta> criarConsulta(@RequestBody ConsultaDTO consultaDTO) throws Exception {
         return ResponseEntity.ok(consultaService.criarConsulta(consultaDTO));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> apagarConsulta(@PathVariable Long id) throws Exception {
+        consultaService.apagarConsulta(id);
+        return ResponseEntity.ok().build();
+    }
 }

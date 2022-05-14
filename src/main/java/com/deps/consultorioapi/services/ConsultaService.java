@@ -57,9 +57,15 @@ public class ConsultaService {
         }
     }
 
-    public void apagarConsulta(Consulta consulta) throws Exception {
+    public void apagarConsulta(Long id) throws Exception {
 
+        Consulta consulta = consultaRepository.findById(id).get();
         if (consulta.getDataConsulta().isAfter(LocalDate.now())){
+
+            consulta.getMedico().removerConsulta(consulta);
+            consulta.getPaciente().removerConsulta(consulta);
+
+            consultaRepository.save(consulta);
             consultaRepository.delete(consulta);
         }else{
             throw new Exception("Não é possível cancelar uma consulta passada!");
