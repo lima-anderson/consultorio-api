@@ -48,15 +48,9 @@ public class ConsultaService {
             throw new Exception("AGENDAMENTOS APENAS DE SEGUNDA À SEXTA");
         }
 
-        int consultas = 0;
+        List<Consulta> consultas = consultaRepository.findConsultaByDataConsulta(consultaDTO.getDataConsulta());
 
-        for (Consulta consulta : medico.getConsultas()){
-            if (consulta.getDataConsulta().isEqual(consultaDTO.getDataConsulta())){
-                consultas++;
-            }
-        }
-
-        if (consultas >= 10){
+        if (consultas.size() >= 10){
             throw new Exception("NÃO HÁ MAIS VAGAS PARA ESTE MÉDICO NESTA DATA");
         }
 
