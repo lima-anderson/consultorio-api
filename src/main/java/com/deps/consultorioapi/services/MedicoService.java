@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.deps.consultorioapi.services.excecoes.ErroInternoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,7 @@ public class MedicoService {
 
 	public Medico buscarMedicoPorId(Long id) {
 		Optional<Medico> obj = medicoRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
+		return obj.orElseThrow(() -> new ErroInternoException("Médico não encontrado, por favor verique o ID informado"));
 	}
 
 	public Medico cadastrarMedico(Medico medico) {
@@ -45,7 +45,7 @@ public class MedicoService {
 		try {
 			medicoRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new IntegridadeDeDadoException("Não é possível excluir estudante que possui produtos.");
+			throw new ErroInternoException("Não foi possível fazer a operação com ID informado");
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.deps.consultorioapi.services.excecoes.ErroInternoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,23 +36,22 @@ public class ConsultaService {
 
     public Consulta buscarConsultaPorId(Long id){
     	Optional<Consulta> obj = consultaRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
+		return obj.orElseThrow(() -> new ErroInternoException("Consulta Não encontrada"));
     } 
     
-    public Consulta criarConsulta(ConsultaDTO consultaDTO) throws Exception {
+    public Consulta criarConsulta(ConsultaDTO consultaDTO) throws ErroInternoException {
 
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
         Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
 
         if (consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SATURDAY) || consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SUNDAY)){
-            throw new Exception("AGENDAMENTOS APENAS DE SEGUNDA À SEXTA");
+            throw new ErroInternoException("AGENDAMENTOS APENAS DE SEGUNDA À SEXTA");
         }
 
-        List<Consulta> consultas = consultaRepository.findConsultaByDataConsulta(consultaDTO.getDataConsulta());
+        List<Consulta> consultas = consultaRepository.findConsultaByDataConsultaAndMedico(consultaDTO.getDataConsulta(), medico);
 
         if (consultas.size() >= 10){
-            throw new Exception("NÃO HÁ MAIS VAGAS PARA ESTE MÉDICO NESTA DATA");
+            throw new ErroInternoException("NÃO HÁ MAIS VAGAS PARA ESTE MÉDICO NESTA DATA");
         }
 
         if (medico != null && paciente != null){
@@ -65,7 +65,7 @@ public class ConsultaService {
             return consultaRepository.save(consulta);
         }
         else {
-            throw new Exception("Medico ou paciente inválidos");
+            throw new ErroInternoException("Medico ou paciente inválidos");
         }
     }
 
