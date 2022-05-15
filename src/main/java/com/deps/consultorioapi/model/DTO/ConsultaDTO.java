@@ -15,7 +15,6 @@ public class ConsultaDTO {
 
     private Long pacienteId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataConsulta;
 
     public ConsultaDTO(){}
