@@ -1,5 +1,6 @@
 package com.deps.consultorioapi.services;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,10 @@ public class ConsultaService {
 
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
         Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
+
+        if (consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SATURDAY) || consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+            throw new Exception("AGENDAMENTOS APENAS DE SEGUNDA À SEXTA");
+        }
 
         int consultas = 0;
 
