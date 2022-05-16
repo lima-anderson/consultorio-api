@@ -48,4 +48,14 @@ public class ConsultaController {
     public ResponseEntity<Consulta> alterarConsulta(@RequestBody ConsultaDTO consulta){
         return ResponseEntity.ok(consultaService.alterarConsulta(consulta));
     }
+
+    @GetMapping("/medico/{id}")
+    public ResponseEntity<List<Consulta>> listarConsultasPorMedico(@PathVariable Long id){
+        return ResponseEntity.ok(consultaService.listarConsultasPorMedico(id));
+    }
+
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<List<Consulta>> listarConsultasPorPaciente(@PathVariable Long id){
+        return ResponseEntity.ok(consultaService.listarConsultasPorPaciente(id));
+    }
 }

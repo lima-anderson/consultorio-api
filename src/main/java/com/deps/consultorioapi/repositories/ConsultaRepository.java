@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
-    List<Medico> findConsultaByMedico(Medico medico);
+    List<Consulta> findConsultaByMedico(Medico medico);
 
-    List<Paciente> findConsultaByMedico(Paciente paciente);
+    List<Consulta> findConsultaByPaciente(Paciente paciente);
 
     List<Consulta> findConsultaByDataConsultaAndMedico(LocalDate data, Medico medico);
 }
