@@ -16,6 +16,7 @@ import com.deps.consultorioapi.model.Paciente;
 import com.deps.consultorioapi.model.DTO.ConsultaDTO;
 import com.deps.consultorioapi.repositories.ConsultaRepository;
 import com.deps.consultorioapi.services.excecoes.ObjetoNaoEncontradoException;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Service
@@ -84,9 +85,9 @@ public class ConsultaService {
         }
     }
 
-    public Consulta alterarConsulta(ConsultaDTO consultaDTO){
+    public Consulta alterarConsulta(@PathVariable Long id, ConsultaDTO consultaDTO){
 
-        Consulta consulta = this.buscarConsultaPorId(consultaDTO.getIdConsulta());
+        Consulta consulta = this.buscarConsultaPorId(id);
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
         Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
         LocalDate dataConsulta = consultaDTO.getDataConsulta();
