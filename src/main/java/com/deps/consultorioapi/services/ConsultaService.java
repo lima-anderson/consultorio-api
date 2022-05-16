@@ -69,7 +69,7 @@ public class ConsultaService {
         }
     }
 
-    public void apagarConsulta(Long id) throws Exception {
+    public void apagarConsulta(Long id) {
 
         Consulta consulta = consultaRepository.findById(id).get();
         if (consulta.getDataConsulta().isAfter(LocalDate.now())){
@@ -80,7 +80,7 @@ public class ConsultaService {
             consultaRepository.save(consulta);
             consultaRepository.delete(consulta);
         }else{
-            throw new Exception("Não é possível cancelar uma consulta passada!");
+            throw new ErroInternoException("Não é possível cancelar uma consulta passada!");
         }
     }
 
@@ -96,6 +96,26 @@ public class ConsultaService {
         consulta.setDataConsulta(dataConsulta);
 
         return consultaRepository.save(consulta);
+    }
+
+    public List<Consulta> listarConsultasPorMedico(Long id){
+        try{
+            Medico medico = medicoService.buscarMedicoPorId(id);
+            return consultaRepository.findConsultaByMedico(medico);
+
+        }catch (Exception e){
+            throw new ErroInternoException(e.getMessage());
+        }
+    }
+
+    public List<Consulta> listarConsultasPorPaciente(Long id){
+        try{
+            Paciente paciente = pacienteService.buscarPorId(id);
+            return consultaRepository.findConsultaByPaciente(paciente);
+
+        }catch (Exception e){
+            throw new ErroInternoException(e.getMessage());
+        }
     }
 
 

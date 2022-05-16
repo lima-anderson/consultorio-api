@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.deps.consultorioapi.model.Paciente;
 import com.deps.consultorioapi.services.PacienteService;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/pacientes")

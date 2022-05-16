@@ -18,6 +18,7 @@ import com.deps.consultorioapi.model.Consulta;
 import com.deps.consultorioapi.model.DTO.ConsultaDTO;
 import com.deps.consultorioapi.services.ConsultaService;
 
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("consultas")

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -29,14 +30,14 @@ public class Paciente implements Serializable {
 	@NotBlank
 	private String nome;
 
-	@NotBlank
+	@NotNull
 	private Date dataDeNascimento;
 
 	@NotBlank
 	@CPF
 	private String cpf;
 
-	@NotBlank
+	@NotNull
 	private Long telefone;
 
 	@NotBlank
