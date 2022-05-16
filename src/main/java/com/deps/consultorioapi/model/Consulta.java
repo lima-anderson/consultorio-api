@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,12 +24,16 @@ public class Consulta implements Serializable {
 
 	@OneToOne
 	@JsonIgnore
+	@NotBlank
 	private Medico medico;
+	
 	@OneToOne
 	@JsonIgnore
+	@NotBlank
 	private Paciente paciente;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	@NotBlank
 	private LocalDate dataConsulta;
 
 	public Consulta(){}
@@ -95,4 +100,6 @@ public class Consulta implements Serializable {
 	public String getNomePaciente(){
 		return paciente.getNome();
 	}
+	
+	
 }

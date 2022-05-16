@@ -43,7 +43,7 @@ public class PacienteService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new IntegridadeDeDadoException("Não é possível excluir estudante que possui produtos.");
+			throw new IntegridadeDeDadoException("Não é possível excluir paciente que possui produtos.");
 		}
 	}
 

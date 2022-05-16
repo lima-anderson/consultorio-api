@@ -5,18 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.deps.consultorioapi.services.excecoes.ErroInternoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Especialidade;
 import com.deps.consultorioapi.model.Medico;
-import com.deps.consultorioapi.model.Paciente;
 import com.deps.consultorioapi.repositories.ConsultaRepository;
 import com.deps.consultorioapi.repositories.MedicoRepository;
-import com.deps.consultorioapi.services.excecoes.IntegridadeDeDadoException;
-import com.deps.consultorioapi.services.excecoes.ObjetoNaoEncontradoException;
+import com.deps.consultorioapi.services.excecoes.ErroInternoException;
 
 @Service
 public class MedicoService {

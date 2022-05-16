@@ -98,24 +98,5 @@ public class ConsultaService {
         return consultaRepository.save(consulta);
     }
 
-    public List<Consulta> listarConsultasPorMedico(Long id){
-        try{
-            Medico medico = medicoService.buscarMedicoPorId(id);
-            return consultaRepository.findConsultaByMedico(medico);
-
-        }catch (Exception e){
-            throw new ErroInternoException(e.getMessage());
-        }
-    }
-
-    public List<Consulta> listarConsultasPorPaciente(Long id){
-        try{
-            Paciente paciente = pacienteService.buscarPorId(id);
-            return consultaRepository.findConsultaByPaciente(paciente);
-
-        }catch (Exception e){
-            throw new ErroInternoException(e.getMessage());
-        }
-    }
 
 }

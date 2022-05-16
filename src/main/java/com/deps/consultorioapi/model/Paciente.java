@@ -11,6 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+
 
 @Entity
 public class Paciente implements Serializable {
@@ -19,15 +25,31 @@ public class Paciente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank
 	private String nome;
+
+	@NotBlank
 	private Date dataDeNascimento;
+
+	@NotBlank
+	@CPF
 	private String cpf;
+
+	@NotBlank
 	private Long telefone;
+
+	@NotBlank
+	@Email
 	private String email;
+
+	@NotBlank
 	private String sexo;
+
+	@NotBlank
 	private String endereco;
 
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Consulta> consultas = new ArrayList<>();
 
 	public Paciente() {
@@ -119,15 +141,15 @@ public class Paciente implements Serializable {
 		this.consultas = consultas;
 	}
 
-	public void addConsulta(Consulta consulta){
+	public void addConsulta(Consulta consulta) {
 		this.consultas.add(consulta);
 	}
 
-	public void removerConsulta(Consulta consulta){
+	public void removerConsulta(Consulta consulta) {
 		this.consultas.remove(consulta);
 	}
 
-	//	public List<Consulta> getAgenda() {
+	// public List<Consulta> getAgenda() {
 //		return agenda;
 //	}
 //
