@@ -53,9 +53,9 @@ public class ConsultaController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<Consulta> alterarConsulta(@RequestBody ConsultaDTO consulta){
-        return ResponseEntity.ok(consultaService.alterarConsulta(consulta));
+    @PutMapping("/{id}")
+    public ResponseEntity<Consulta> alterarConsulta(@PathVariable Long id, @RequestBody ConsultaDTO consulta){
+        return ResponseEntity.ok(consultaService.alterarConsulta(id, consulta));
     }
 
     @GetMapping("/medico/{id}")
