@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Medico implements Serializable {
@@ -21,13 +22,13 @@ public class Medico implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	@NotNull
 	private Long crm;
 
 	@NotBlank
 	private String nome;
 
-	@NotBlank
+	@NotNull
 	private Especialidade especialidade;
 
 	@NotBlank

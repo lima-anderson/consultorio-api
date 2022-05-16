@@ -18,6 +18,7 @@ import com.deps.consultorioapi.model.Consulta;
 import com.deps.consultorioapi.model.DTO.ConsultaDTO;
 import com.deps.consultorioapi.services.ConsultaService;
 
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("consultas")
@@ -55,5 +56,15 @@ public class ConsultaController {
     @PutMapping
     public ResponseEntity<Consulta> alterarConsulta(@RequestBody ConsultaDTO consulta){
         return ResponseEntity.ok(consultaService.alterarConsulta(consulta));
+    }
+
+    @GetMapping("/medico/{id}")
+    public ResponseEntity<List<Consulta>> listarConsultasPorMedico(@PathVariable Long id){
+        return ResponseEntity.ok(consultaService.listarConsultasPorMedico(id));
+    }
+
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<List<Consulta>> listarConsultasPorPaciente(@PathVariable Long id){
+        return ResponseEntity.ok(consultaService.listarConsultasPorPaciente(id));
     }
 }
