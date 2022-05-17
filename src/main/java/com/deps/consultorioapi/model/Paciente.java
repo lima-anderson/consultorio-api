@@ -44,8 +44,8 @@ public class Paciente implements Serializable {
 	@Email
 	private String email;
 
-	@NotBlank
-	private String sexo;
+	@NotNull
+	private Sexo sexo;
 
 	@NotBlank
 	private String endereco;
@@ -57,7 +57,7 @@ public class Paciente implements Serializable {
 
 	}
 
-	public Paciente(Long id, String nome, Date dataDeNascimento, String cpf, Long telefone, String email, String sexo,
+	public Paciente(Long id, String nome, Date dataDeNascimento, String cpf, Long telefone, String email, Sexo sexo,
 			String endereco) {
 		super();
 		this.id = id;
@@ -118,11 +118,11 @@ public class Paciente implements Serializable {
 		this.email = email;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

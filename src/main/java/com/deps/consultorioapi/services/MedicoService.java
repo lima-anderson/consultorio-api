@@ -71,7 +71,7 @@ public class MedicoService {
 	}
 
 	public List<Especialidade> listarEspecialidades() {
-		List<Especialidade> especialidades = new ArrayList<>();
+		//List<Especialidade> especialidades = new ArrayList<>();
 
 		return Arrays.asList(Especialidade.values());
 	}
