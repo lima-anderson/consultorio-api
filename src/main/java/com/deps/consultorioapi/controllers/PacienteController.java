@@ -3,6 +3,7 @@ package com.deps.consultorioapi.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.deps.consultorioapi.model.Sexo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,11 @@ public class PacienteController {
 	public ResponseEntity<Void> apagar(@PathVariable Long id) {
 		paciente.apagar(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/generos")
+	public ResponseEntity<List<Sexo>> listarOpcoesSexo(){
+		return ResponseEntity.ok(paciente.listaOpcoesSexo());
 	}
 
 }

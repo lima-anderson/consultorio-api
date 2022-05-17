@@ -1,8 +1,12 @@
 package com.deps.consultorioapi.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.deps.consultorioapi.model.Especialidade;
+import com.deps.consultorioapi.model.Sexo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -45,6 +49,11 @@ public class PacienteService {
 		} catch (DataIntegrityViolationException e) {
 			throw new IntegridadeDeDadoException("Não é possível excluir paciente que possui produtos.");
 		}
+	}
+
+	public List<Sexo> listaOpcoesSexo(){
+
+		return Arrays.asList(Sexo.values());
 	}
 
 }
