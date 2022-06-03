@@ -1,17 +1,15 @@
 package com.deps.consultorioapi.services;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.deps.consultorioapi.model.Especialidade;
-import com.deps.consultorioapi.model.Sexo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Paciente;
+import com.deps.consultorioapi.model.Sexo;
 import com.deps.consultorioapi.repositories.PacienteRepository;
 import com.deps.consultorioapi.services.excecoes.IntegridadeDeDadoException;
 import com.deps.consultorioapi.services.excecoes.ObjetoNaoEncontradoException;
@@ -47,7 +45,7 @@ public class PacienteService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new IntegridadeDeDadoException("Não é possível excluir paciente que possui produtos.");
+			throw new IntegridadeDeDadoException("Não é possível excluir paciente");
 		}
 	}
 
