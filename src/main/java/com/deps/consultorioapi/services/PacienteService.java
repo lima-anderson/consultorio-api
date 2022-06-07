@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Paciente;
@@ -31,7 +32,8 @@ public class PacienteService {
 	}
 		
 	public Paciente inserir(Paciente obj) {
-		obj.setId(null);
+		String funcionario =  SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		obj.setCadastradoPor(funcionario);
 		return repo.save(obj);
 	}
 

@@ -1,16 +1,21 @@
 package com.deps.consultorioapi.model;
 
-import java.io.Serializable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -18,28 +23,38 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@NotBlank
-	private String Login;
+	private String nome;
 
 	@NotBlank
-	private String Senha;
+	@Column(unique = true)
+	private String username;
 
 	@NotBlank
-	private String Nome;
+	private String password;
 
-	@NotNull
-	private Boolean administrador;
+//	@NotNull
+//	private Boolean administrador;
 
-	public Usuario() {
-		super();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "tb_usuario_role",
+			joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id")
+	)
+	private Set<Role> roles = new HashSet<>();
+
+	private Set<Role> getRoles() {
+		return roles;
 	}
 
-	public Usuario(@NotBlank String login, @NotBlank String senha, @NotBlank String nome,
-			@NotNull Boolean administrador) {
-		super();
-		Login = login;
-		Senha = senha;
-		Nome = nome;
-		this.administrador = administrador;
+	private String cadastradoPor;
+
+	public Usuario() {}
+
+	public Usuario(String username, String password, String nome) {
+		this.username = username;
+		this.password = password;
+		this.nome = nome;
 	}
 
 	public Long getId() {
@@ -50,36 +65,67 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return Login;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles.stream().map(x -> new SimpleGrantedAuthority(x.getRoleName()))
+				.collect(Collectors.toList());
 	}
 
-	public void setLogin(String login) {
-		Login = login;
+	@Override
+	public String getPassword() {
+		return password;
 	}
 
-	public String getSenha() {
-		return Senha;
+	public void setPassword(String password){
+		this.password = password;
 	}
 
-	public void setSenha(String senha) {
-		Senha = senha;
+	public String getUsername() {
+		return username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public void setUsername(String login) {
+		username = username;
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		nome = nome;
 	}
 
-	public Boolean getAdministrador() {
-		return administrador;
+	public void addRole(Role role){
+		roles.add(role);
 	}
 
-	public void setAdministrador(Boolean administrador) {
-		this.administrador = administrador;
+	public String getCadastradoPor() {
+		return cadastradoPor;
+	}
+
+	public void setCadastradoPor(String cadastradoPor) {
+		this.cadastradoPor = cadastradoPor;
 	}
 
 	@Override

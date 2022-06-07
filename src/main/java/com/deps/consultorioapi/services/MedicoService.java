@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Especialidade;
@@ -33,6 +34,9 @@ public class MedicoService {
 	}
 
 	public Medico cadastrarMedico(Medico medico) {
+		// Pegando o username do usuário logado na sessão
+		String funcionario =  SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		medico.setCadastradoPor(funcionario);
 		return medicoRepository.save(medico);
 	}
 

@@ -41,6 +41,8 @@ public class Medico implements Serializable {
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Consulta> consultas = new ArrayList<>();
 
+	private String cadastradoPor;
+
 	public Medico() {
 	}
 
@@ -121,5 +123,13 @@ public class Medico implements Serializable {
 
 	public void removerConsulta(Consulta consulta) {
 		this.consultas.remove(consulta);
+	}
+
+	public String getCadastradoPor() {
+		return cadastradoPor;
+	}
+
+	public void setCadastradoPor(String cadastradoPor) {
+		this.cadastradoPor = cadastradoPor;
 	}
 }

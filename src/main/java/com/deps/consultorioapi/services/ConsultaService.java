@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.deps.consultorioapi.services.excecoes.ErroInternoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.deps.consultorioapi.model.Consulta;
@@ -45,6 +46,10 @@ public class ConsultaService {
         Medico medico = medicoService.buscarMedicoPorId(consultaDTO.getMedicoId());
         Paciente paciente = pacienteService.buscarPorId(consultaDTO.getPacienteId());
 
+        if (consultaDTO.getDataConsulta().isBefore(LocalDate.now())){
+            throw new ErroInternoException("AGENDAMENTOS APENAS EM DATAS FUTURAS");
+        }
+
         if (consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SATURDAY) || consultaDTO.getDataConsulta().getDayOfWeek().equals(DayOfWeek.SUNDAY)){
             throw new ErroInternoException("AGENDAMENTOS APENAS DE SEGUNDA À SEXTA");
         }
@@ -60,8 +65,9 @@ public class ConsultaService {
             medico.addConsulta(consulta);
             paciente.addConsulta(consulta);
 
-//            medicoService.atualizarMedico(medico.getId(), medico);
-//            pacienteService.alterar(paciente);
+            // Pegando o username do funcionario logado na sessão
+            String funcionario =  SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            consulta.setCadastradoPor(funcionario);
 
             return consultaRepository.save(consulta);
         }
