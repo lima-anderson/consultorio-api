@@ -34,6 +34,8 @@ public class Consulta implements Serializable {
 	@NotNull
 	private LocalDate dataConsulta;
 
+	private String cadastradoPor;
+
 	public Consulta(){}
 
 	public Consulta(Medico medico, Paciente paciente, LocalDate dataConsulta){
@@ -98,6 +100,12 @@ public class Consulta implements Serializable {
 	public String getNomePaciente(){
 		return paciente.getNome();
 	}
-	
-	
+
+	public String getCadastradoPor() {
+		return cadastradoPor;
+	}
+
+	public void setCadastradoPor(String cadastradoPor) {
+		this.cadastradoPor = cadastradoPor;
+	}
 }
