@@ -34,11 +34,10 @@ public class Paciente implements Serializable {
 	private Date dataDeNascimento;
 
 	@NotBlank
-	@CPF
 	private String cpf;
 
 	@NotNull
-	private Long telefone;
+	private String telefone;
 
 	@NotBlank
 	@Email
@@ -59,7 +58,7 @@ public class Paciente implements Serializable {
 
 	}
 
-	public Paciente(Long id, String nome, Date dataDeNascimento, String cpf, Long telefone, String email, Sexo sexo,
+	public Paciente(Long id, String nome, Date dataDeNascimento, String cpf, String telefone, String email, Sexo sexo,
 			String endereco) {
 		super();
 		this.id = id;
@@ -104,11 +103,11 @@ public class Paciente implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public Long getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Long telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
