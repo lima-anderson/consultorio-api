@@ -81,7 +81,7 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setUsername(usuarioRequestDTO.getUsername());
 		usuario.setNome(usuarioRequestDTO.getNome());
 
-		if (!usuarioRequestDTO.getPassword().isEmpty() && usuarioRequestDTO.getPassword() != usuario.getPassword()){
+		if (!usuarioRequestDTO.getPassword().isEmpty() && !usuarioRequestDTO.getPassword().equals(usuario.getPassword())){
 			usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioRequestDTO.getPassword()));
 		}
 
