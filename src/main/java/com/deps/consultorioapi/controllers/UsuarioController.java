@@ -37,11 +37,9 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuario.inserir(usuarioRequestDTO));
 	}
 
-	@PutMapping({"/id"})
-	public ResponseEntity<Void> alterar(@PathVariable Long id, @RequestBody Usuario obj) {
-		obj.setId(id);
-		obj = usuario.alterar(obj);
-		return ResponseEntity.noContent().build();
+	@PutMapping({"/{id}"})
+	public ResponseEntity<Usuario> alterar(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+		return ResponseEntity.ok(usuario.alterar(id, usuarioRequestDTO));
 	}
 
 	@DeleteMapping("/{id}")

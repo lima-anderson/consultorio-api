@@ -105,7 +105,7 @@ public class Usuario implements UserDetails, Serializable {
 	}
 
 	public void setUsername(String login) {
-		username = username;
+		this.username = username;
 	}
 
 	public String getNome() {
@@ -113,11 +113,15 @@ public class Usuario implements UserDetails, Serializable {
 	}
 
 	public void setNome(String nome) {
-		nome = nome;
+		this.nome = nome;
 	}
 
 	public void addRole(Role role){
 		roles.add(role);
+	}
+
+	public void removeRole(Role role){
+		roles.remove(role);
 	}
 
 	public String getCadastradoPor() {
