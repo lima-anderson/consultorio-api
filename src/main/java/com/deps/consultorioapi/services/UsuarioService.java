@@ -81,6 +81,10 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setUsername(usuarioRequestDTO.getUsername());
 		usuario.setNome(usuarioRequestDTO.getNome());
 
+		if (!usuarioRequestDTO.getPassword().isEmpty()){
+			usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioRequestDTO.getPassword()));
+		}
+
 		Role role_admin = roleRepository.findById(2L).get();
 
 		if (usuarioRequestDTO.getAdmin() == true && usuario.getAuthorities().size() < 2){
