@@ -75,9 +75,30 @@ public class UsuarioService implements UserDetailsService {
 		return usuarioRepository.save(usuario);
 	}
 
-	public Usuario alterar(Usuario obj) {
-		buscarPorId(obj.getId());
-		return usuarioRepository.save(obj);
+	public Usuario alterar(Long idUsuario, UsuarioRequestDTO usuarioRequestDTO) {
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+
+		usuario.setUsername(usuarioRequestDTO.getUsername());
+		usuario.setNome(usuarioRequestDTO.getNome());
+
+		if (!usuarioRequestDTO.getPassword().isEmpty() && !usuarioRequestDTO.getPassword().equals(usuario.getPassword())){
+			usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioRequestDTO.getPassword()));
+		}
+
+		Role role_admin = roleRepository.findById(2L).get();
+
+		if (usuarioRequestDTO.getAdmin() == true && usuario.getAuthorities().size() < 2){
+			usuario.addRole(role_admin);
+		}
+
+		if (usuarioRequestDTO.getAdmin() == false && usuario.getAuthorities().size() == 2){
+			usuario.removeRole(role_admin);
+		}
+
+		logger.info("NOME: " + usuario.getNome() + " USERNAME: " + usuario.getUsername());
+
+		return usuarioRepository.save(usuario);
+
 	}
 
 	public void apagar(Long id) {
