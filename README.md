@@ -18,4 +18,4 @@ cd target/
 java -jar consultorio-api-0.0.1-SNAPSHOT.jar
 ```
 
-(Frontend)[https://github.com/AmandaGAB/projeto-consultorio-front]
+[Frontend](https://github.com/AmandaGAB/projeto-consultorio-front)
